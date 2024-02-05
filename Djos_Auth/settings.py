@@ -176,15 +176,25 @@ DJOSER = {
         'user': 'core.serializers.Djoser.UserSerializer',
         #! Can change later
         'current_user': 'core.serializers.Djoser.UserSerializer',
+
+        "activation": "core.serializers.Djoser.ActivationSerializer",
+
+        "password_reset_confirm": "core.serializers.Djoser.PasswordResetConfirmSerializer",
+
+        "password_reset_confirm_retype": "core.serializers.Djoser.PasswordResetConfirmRetypeSerializer",
+
+        "username_reset_confirm": "core.serializers.Djoser.UsernameResetConfirmSerializer",
+
+        "username_reset_confirm_retype": "core.serializers.Djoser.UsernameResetConfirmRetypeSerializer",
+
         # 'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
 
-    # To perform expiration and save the
     'EMAIL': {
-        'activation': 'account.email.ActivationEmail' ,
-        'confirmation': 'account.email.ConfirmationEmail' ,
-        'password_reset': 'account.email.PasswordResetEmail' ,
-        'password_changed_confirmation': 'account.email.PasswordChangedConfirmationEmail' ,
+        'activation': 'core.serializers.Djoser.ActivationEmail' ,
+        'confirmation': 'core.serializers.Djoser.ConfirmationEmail' ,
+        'password_reset': 'core.serializers.Djoser.PasswordResetEmail' ,
+        'password_changed_confirmation': 'core.serializers.Djoser.PasswordChangedConfirmationEmail' ,
     } ,
 
 
