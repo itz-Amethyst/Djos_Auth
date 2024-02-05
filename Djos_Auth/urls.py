@@ -8,6 +8,7 @@ urlpatterns = [
     #? Djoser
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.jwt')),
+    path('auth/', include('core.api.router.urls')),
 
     # ! Docs
     path('api/schema/' , SpectacularAPIView.as_view() , name = 'schema') ,
