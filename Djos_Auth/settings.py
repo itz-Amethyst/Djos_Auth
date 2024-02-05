@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 import environ
 from pathlib import Path
@@ -36,7 +37,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'corsheaders',
+    'drf_spectacular',
     #? Internal
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -52,7 +55,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "Djos_Auth.urls"
 
-CORS_ALLOWED_ORIGINS = [env("CORS_ALLOWED_ORIGINS")]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000'
+]
 
 TEMPLATES = [
     {
@@ -97,9 +102,9 @@ AUTH_USER_MODEL = 'core.User'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
@@ -143,4 +148,28 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("JWT", ),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=5),
+}
+
+DJOSER = {
+    "LOGIN_FIELD": 'email',
+    "SEND_ACTIVATION_EMAIL": True,
+    "SEND_CONFIRMATION_EMAIL": True,
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
+    "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
+    "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
+    'SERIALIZERS':{
+        'user_create_password_retype': 'core.serializers.Djoser.UserCreateSerializer',
+        # 'user': 'account.serializers.UserCreateSerializer',
+        # 'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    },
+
 }

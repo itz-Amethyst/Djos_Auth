@@ -11,7 +11,7 @@ class User(AbstractUser):
         unique = True ,
     )
 
-    phone_number = models.PositiveSmallIntegerField(
+    phone_number = models.BigIntegerField(
         _("Phone Number") ,
         default = 0,
         help_text = _("User's phone number") ,
@@ -37,5 +37,13 @@ class User(AbstractUser):
         help_text = _("User's country") ,
         db_comment = _("User's country") ,
         blank = True,
+    )
+
+    company_name = models.CharField(
+        _("Company Name"),
+        max_length = 70,
+        help_text = _("Company's name"),
+        db_comment = _("Company's name"),
+        default = ''
     )
 
