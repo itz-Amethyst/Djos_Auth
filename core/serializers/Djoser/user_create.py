@@ -1,5 +1,5 @@
 import phonenumbers
-from djoser.serializers import UserSerializer, UserCreatePasswordRetypeSerializer
+from djoser.serializers import UserCreatePasswordRetypeSerializer
 from rest_framework import serializers
 
 from core.models import User

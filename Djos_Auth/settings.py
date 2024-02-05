@@ -91,10 +91,10 @@ DATABASES = {
     }
 }
 
-AUTHENTICATION_BACKENDS = [
-    'core.models.auth_backend.EmailOrUsernameModelBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'core.models.auth_backend.EmailOrUsernameModelBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
 
 AUTH_USER_MODEL = 'core.User'
 
@@ -157,7 +157,7 @@ SIMPLE_JWT = {
 }
 
 DJOSER = {
-    "LOGIN_FIELD": 'email',
+    # "LOGIN_FIELD": 'email',
     "SEND_ACTIVATION_EMAIL": True,
     "SEND_CONFIRMATION_EMAIL": True,
     "USER_CREATE_PASSWORD_RETYPE": True,
@@ -166,10 +166,34 @@ DJOSER = {
     "PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
+    'TOKEN_MODEL': None,       # To Delete User Must Set it to None
+    'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
+    # 'ACTIVATION_URL':'auth/users/activation/{uid}/{token}',
+    'ACTIVATION_URL': 'auth/activate/?uid={uid}&token={token}',
+
     'SERIALIZERS':{
         'user_create_password_retype': 'core.serializers.Djoser.UserCreateSerializer',
-        # 'user': 'account.serializers.UserCreateSerializer',
+        'user': 'core.serializers.Djoser.UserSerializer',
+        #! Can change later
+        'current_user': 'core.serializers.Djoser.UserSerializer',
         # 'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
 
+    # To perform expiration and save the
+    'EMAIL': {
+        'activation': 'account.email.ActivationEmail' ,
+        'confirmation': 'account.email.ConfirmationEmail' ,
+        'password_reset': 'account.email.PasswordResetEmail' ,
+        'password_changed_confirmation': 'account.email.PasswordChangedConfirmationEmail' ,
+    } ,
+
+
 }
+
+CURRENT_SITE = env("CURRENT_SITE")
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = '2525'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'from@milad.com'

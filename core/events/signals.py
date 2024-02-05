@@ -22,7 +22,10 @@ def pre_save_user(sender, instance, **kwargs):
                 # country_code = phonenumbers.region_code_for_number(parsed_number)
 
                 # Getting region information completed
-                country_code = geocoder.description_for_number(parsed_number , 'en')
+                country_code = geocoder.country_name_for_number(parsed_number , 'en')
+
+                # Getting region information State or city of country if needed
+                # Region = geocoder.description_for_number(phoneNumber , 'en')
 
                 if country_code is None:
                     raise ValidationError(_("Unable to determine country from the phone number"))
