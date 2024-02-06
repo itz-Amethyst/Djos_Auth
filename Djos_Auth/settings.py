@@ -183,6 +183,7 @@ DJOSER = {
 
         "password_reset_confirm_retype": "core.serializers.Djoser.PasswordResetConfirmRetypeSerializer",
 
+        # Some things wrong with this checked everything
         "username_reset_confirm": "core.serializers.Djoser.UsernameResetConfirmSerializer",
 
         "username_reset_confirm_retype": "core.serializers.Djoser.UsernameResetConfirmRetypeSerializer",
@@ -192,11 +193,9 @@ DJOSER = {
 
     'EMAIL': {
         'activation': 'core.serializers.Djoser.ActivationEmail' ,
-        'confirmation': 'core.serializers.Djoser.ConfirmationEmail' ,
         'password_reset': 'core.serializers.Djoser.PasswordResetEmail' ,
-        'password_changed_confirmation': 'core.serializers.Djoser.PasswordChangedConfirmationEmail' ,
+        'username_reset': 'core.serializers.Djoser.UsernameResetEmail'
     } ,
-
 
 }
 

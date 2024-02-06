@@ -12,24 +12,25 @@ from core.models import User
 # Can remove the validation here
 @receiver(pre_save, sender=User)
 def pre_save_user(sender, instance, **kwargs):
-    if instance.phone_number:
-        with transaction.atomic():
-            try:
-                parsed_number = phonenumbers.parse(instance.phone_number , None)
-                if not phonenumbers.is_valid_number(parsed_number):
-                    raise ValidationError(_("Invalid phone number"))
+    if not instance.id:
+        if instance.phone_number:
+            with transaction.atomic():
+                try:
+                    parsed_number = phonenumbers.parse(instance.phone_number , None)
+                    if not phonenumbers.is_valid_number(parsed_number):
+                        raise ValidationError(_("Invalid phone number"))
 
-                # country_code = phonenumbers.region_code_for_number(parsed_number)
+                    # country_code = phonenumbers.region_code_for_number(parsed_number)
 
-                # Getting region information completed
-                country_code = geocoder.country_name_for_number(parsed_number , 'en')
+                    # Getting region information completed
+                    country_code = geocoder.country_name_for_number(parsed_number , 'en')
 
-                # Getting region information State or city of country if needed
-                # Region = geocoder.description_for_number(phoneNumber , 'en')
+                    # Getting region information State or city of country if needed
+                    # Region = geocoder.description_for_number(phoneNumber , 'en')
 
-                if country_code is None:
-                    raise ValidationError(_("Unable to determine country from the phone number"))
+                    if country_code is None:
+                        raise ValidationError(_("Unable to determine country from the phone number"))
 
-                instance.country = country_code
-            except:
-                raise ValidationError(_("Invalid phone number format"))
+                    instance.country = country_code
+                except:
+                    raise ValidationError(_("Invalid phone number format"))
