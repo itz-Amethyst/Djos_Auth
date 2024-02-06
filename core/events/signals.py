@@ -28,9 +28,9 @@ def pre_save_user(sender, instance, **kwargs):
                     # Getting region information State or city of country if needed
                     # Region = geocoder.description_for_number(phoneNumber , 'en')
 
-                    if country_code is None:
+                    if country_code is '' or None:
                         raise ValidationError(_("Unable to determine country from the phone number"))
 
                     instance.country = country_code
-                except:
-                    raise ValidationError(_("Invalid phone number format"))
+                except ValidationError as e:
+                    raise ValidationError(e.detail)
