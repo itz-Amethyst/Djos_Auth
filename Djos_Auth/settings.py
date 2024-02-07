@@ -173,6 +173,7 @@ DJOSER = {
 
     'SERIALIZERS':{
         'user_create_password_retype': 'core.serializers.Djoser.UserCreateSerializer',
+        # Note this api will apply to all patch's like put delete get ... when ever you define fields it will apply on all endpoints
         'user': 'core.serializers.Djoser.UserSerializer',
         #! Can change later
         'current_user': 'core.serializers.Djoser.UserSerializer',
